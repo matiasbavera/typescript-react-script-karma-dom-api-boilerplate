@@ -6,7 +6,7 @@ const { resolve } = require('path');
 /**
  * Webpack Constants
  */
-const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
+const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 /**
  * Webpack configuration
  *
@@ -15,6 +15,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
 module.exports = options => {
   return {
     entry: helpers.root() + "/src/index.tsx",
+    mode: ENV,
     /**
      * Source map for Karma from the help of karma-sourcemap-loader &  karma-webpack
      */
