@@ -1,7 +1,14 @@
 'use strict'
 
-const helpers = require('./helpers');
-const { resolve } = require('path');
+const path = require('path');
+
+// Helper functions
+const ROOT = path.resolve(__dirname, '..');
+
+function root(args) {
+  args = Array.prototype.slice.call(arguments, 0);
+  return path.join.apply(path, [ROOT].concat(args));
+}
 
 /**
  * Webpack Constants
@@ -14,7 +21,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
  */
 module.exports = options => {
   return {
-    entry: helpers.root() + "/src/index.tsx",
+    entry: root() + "/src/index.tsx",
     mode: ENV,
     /**
      * Source map for Karma from the help of karma-sourcemap-loader &  karma-webpack
@@ -36,7 +43,7 @@ module.exports = options => {
       /**
        * Make sure root is src
        */
-      modules: [ resolve(__dirname, 'src'), 'node_modules' ]
+      modules: [ path.resolve(__dirname, 'src'), 'node_modules' ]
     },
 
     /**
@@ -58,7 +65,7 @@ module.exports = options => {
           loader: 'source-map-loader',
           exclude: [
             // these packages have problems with their sourcemaps
-            helpers.root('node_modules/rxjs'),
+            root('node_modules/rxjs'),
           ]
         },
 
